@@ -37,9 +37,6 @@ class UserAuthController extends Controller
         $request->validate([
             'username' => 'required|max:255',
             'password' => 'required',
-            'extension' => [
-                'required',
-            ]
         ]);
         \Log::debug("UserAuthController::store() request:" . print_r($request->all(), true));
         $user = User::where('username', $request->username)->first();

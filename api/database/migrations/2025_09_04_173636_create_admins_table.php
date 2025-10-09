@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('partner_email_addresses', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->integer('type_id')->nullable();
-            $table->integer('partner_id')->nullable();
-            $table->integer('email_address_id')->nullable();
+            $table->string('username')->nullable()->index();
+            $table->string('email')->nullable()->index();
+            $table->string('password')->nullable()->index();
+            $table->boolean('disabled')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('partner_email_addresses');
+        Schema::dropIfExists('partners');
     }
 };

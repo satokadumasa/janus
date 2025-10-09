@@ -35,23 +35,13 @@ return [
     */
 
     'guards' => [
-        // 'web' => [
-        //     'driver' => 'session',
-        //     'provider' => 'users',
-        // ],
-
         'api' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'partner' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'partners',
-        ],
-
-        'houjin' => [
-            'driver' => 'sanctum',
-            'provider' => 'houjins',
+            'provider' => 'admins',
         ],
     ],
 
@@ -77,9 +67,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'partners'=>[
+        'admins'=>[
             'driver'=>'eloquent',
-            'model'=>App\Models\Partner::class,
+            'model'=>App\Models\Admin::class,
         ],
     ],
 

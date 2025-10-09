@@ -25,7 +25,7 @@ return [
     'allowed_headers' => ['*'],
     'allowed_methods' => ['*'],
     'exposed_headers' => [],
-    // 'paths' => ['*'],
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout'],
+    'paths' => ['*'],
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout'],
     'max_age' => 86400604800,
 ];

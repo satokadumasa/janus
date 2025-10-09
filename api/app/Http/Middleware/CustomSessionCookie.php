@@ -18,27 +18,21 @@ class CustomSessionCookie
         $path = $request->path();
         $hostname = gethostname();
         \Log::debug("CustomSessionCookie::handle() path[{$path}]");
-        // \Log::debug("CustomSessionCookie::handle() SERVER:" . print_r($_SERVER, true));
         $previousUrl = $_SERVER['HTTP_ORIGIN'];
         \Log::debug("CustomSessionCookie::handle() hostname[{$previousUrl}]");
 
         // ユーザ用API
-        if (strpos($previousUrl, 'kurapital.pcrm.work')) {
+        if (strpos($previousUrl, 'janus.september-rain.com')) {
             \Log::debug("CustomSessionCookie::handle() user");
             config(['session.cookie' => 'laravel_user_session']);
         }
 
-        // パートナー用API
-        if (strpos($previousUrl, 'partner.pcrm.work')) {
+        // ADMIN用API
+        if (strpos($previousUrl, 'janusadmin.september-rain.com')) {
             \Log::debug("CustomSessionCookie::handle() partner");
-            config(['session.cookie' => 'laravel_partner_session']);
+            config(['session.cookie' => 'laravel_admin_session']);
         }
 
-        // 用API
-        if (strpos($previousUrl, 'houjin.pcrm.work')) {
-            \Log::debug("CustomSessionCookie::handle() houjin");
-            config(['session.cookie' => 'laravel_houjin_session']);
-        }
         return $next($request);
     }
 }

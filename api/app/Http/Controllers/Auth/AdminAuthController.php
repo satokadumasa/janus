@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Partner;
+use App\Models\Adnin;
 use App\Models\PersonalAccessToken;
 
-class PartnerAuthController extends Controller
+class AdminAuthController extends Controller
 {
     public function __construct()
     {
@@ -22,7 +22,7 @@ class PartnerAuthController extends Controller
      */
     public function partner(Request $request) 
     {
-        \Log::debug("PartnerAuthController::partner() START");
+        \Log::debug("AdminAuthController::partner() START");
         return response()->json($request->user());
     }
 
@@ -33,25 +33,23 @@ class PartnerAuthController extends Controller
      */
     public function store(Request $request)
     {
-        \Log::debug("PartnerAuthController::store()");
+        \Log::debug("AdminAuthController::store()");
         $request->validate([
-            'login_email' => 'required|max:255',
+            'username' => 'required|max:255',
             'password' => 'required',
         ]);
-        
 
-
-        \Log::debug("PartnerAuthController::store() request:" . print_r($request->all(), true));
-        $partner = Partner::where('login_email', $request->login_email)->first();
+        \Log::debug("AdminAuthController::store() request:" . print_r($request->all(), true));
+        $partner = Admin::where('username', $request->login_email)->first();
 
         if (!$partner || !Hash::check($request->password, $partner->password)) {
             throw ValidationException::withMessages([
-                'login_email' => ['The provided credentials are incorrect.'],
+                'username' => ['The provided credentials are incorrect.'],
             ]);
         }
         
-        Auth::guard('partner')->login($partner);
-        \Log::debug("PartnerAuthController::store() END");
+        Auth::guard('admin')->login($partner);
+        \Log::debug("AdminAuthController::store() END");
         return [
             'token' => $partner->createToken('api-token')->plainTextToken
         ];
@@ -59,11 +57,10 @@ class PartnerAuthController extends Controller
 
     public function destroy(Request $request)
     {
-        \Log::debug("PartnerAuthController::destroy() START");
+        \Log::debug("AdminAuthController::destroy() START");
         // $user = Auth::guard('partner')->user();
         $user = Auth::user();
-        \Log::debug("PartnerAuthController::destroy() partner:" . print_r($user, true));
         $user->tokens()->delete();
-        \Log::debug("PartnerAuthController::destroy() END");
+        \Log::debug("AdminAuthController::destroy() END");
     }
 }
