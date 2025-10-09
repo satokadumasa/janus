@@ -13,7 +13,6 @@ const { csrf, user, isLoggedIn, login, logout, refreshUser } = useSanctum()
 const router = useRouter();
 
 const form = ref({
-  extension: "",
   username: "",
   password: "",
 });
@@ -44,19 +43,6 @@ const submitForm = async () => {
     <div class="w-full max-w-md p-8 space-y-3 bg-white shadow-lg rounded-xl">
       <h1 class="text-2xl font-bold text-center">Login</h1>
       <form @submit.prevent="submitForm">
-        <div class="flex flex-col space-y-1">
-          <label for="extension" class="text-sm font-medium">Extension</label>
-          <input
-            id="extension"
-            type="extension"
-            v-model="form.extension"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-          <span class="text-sm text-red-600" v-if="errors.extension">
-            {{ errors.extension[0] }}
-          </span>
-        </div>
-
         <div class="flex flex-col space-y-1">
           <label for="username" class="text-sm font-medium">User Name</label>
           <input

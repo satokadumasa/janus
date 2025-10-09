@@ -56,9 +56,14 @@ class UserAuthController extends Controller
 
     public function destroy(Request $request)
     {
+        // \Log::debug("UserAuthController::destroy() START");
+        // $user = Auth::user();
+        // $user->tokens()->delete();
+        // \Log::debug("UserAuthController::destroy() END");
         \Log::debug("UserAuthController::destroy() START");
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
         $user->tokens()->delete();
         \Log::debug("UserAuthController::destroy() END");
+        $request->session()->invalidate();
     }
 }

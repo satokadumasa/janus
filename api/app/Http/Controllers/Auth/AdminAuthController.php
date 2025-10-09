@@ -20,7 +20,7 @@ class AdminAuthController extends Controller
      * Summary of user
      * @param \Illuminate\Http\Request $request
      */
-    public function partner(Request $request) 
+    public function admin(Request $request) 
     {
         \Log::debug("AdminAuthController::partner() START");
         return response()->json($request->user());
@@ -57,10 +57,15 @@ class AdminAuthController extends Controller
 
     public function destroy(Request $request)
     {
+        // \Log::debug("AdminAuthController::destroy() START");
+        // // $user = Auth::guard('partner')->user();
+        // $user = Auth::user();
+        // $user->tokens()->delete();
+        // \Log::debug("AdminAuthController::destroy() END");
         \Log::debug("AdminAuthController::destroy() START");
-        // $user = Auth::guard('partner')->user();
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
         $user->tokens()->delete();
+        $request->session()->invalidate();
         \Log::debug("AdminAuthController::destroy() END");
     }
 }
