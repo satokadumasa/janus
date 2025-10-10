@@ -3,18 +3,20 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  css: ["~/assets/css/main.css"],
-
-  postcss: {
-    plugins: {
-      // tailwindcss: {},
-      autoprefixer: {},
+  modules: [
+    "@qirolab/nuxt-sanctum-authentication",
+  ],
+  
+  css: [
+    "bootstrap/dist/css/bootstrap.min.css"
+  ],
+  vite: {
+    define: {
+      "process.env.DEBUG": false,
     },
   },
 
-  modules: ["@qirolab/nuxt-sanctum-authentication"],
   runtimeConfig: {
-    // sessionCookieName: 'laravel_user_session',
     public: {
       sanctum: {
         url: process.env.NUXT_SANCTUM_API_URL,

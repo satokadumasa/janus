@@ -8,44 +8,55 @@ const logoutUser = () => logout();
 </script>
 
 <template>
-  <div class="h-screen">
-    <nav class="p-4 text-white bg-gray-800">
-      <div class="container flex items-center justify-between mx-auto">
-        <div>
-          <NuxtLink to="/" class="text-xl font-bold">Home</NuxtLink>
-        </div>
-        <div class="flex items-center">
-          <template v-if="!isLoggedIn">
-            <NuxtLink to="/auth/login" class="mr-4">Login</NuxtLink>
-            <NuxtLink to="/auth/register" class="mr-4">Register</NuxtLink>
-          </template>
-          <template v-if="isLoggedIn">
-            <NuxtLink to="/dashboard" class="mr-4">Dashboard</NuxtLink>
-            <NuxtLink to="/profile" class="mr-4">Profile</NuxtLink>
-            <button @click="logoutUser" class="mr-4">Logout</button>
-            <template v-if="user">
-              <div
-                v-if="!user.avatar"
-                class="flex items-center justify-center w-8 h-8 mr-2 bg-gray-200 rounded-full"
-              >
-                <span class="text-lg font-bold text-gray-500">
-                  {{ user.name?.slice(0, 1).toUpperCase() }}
-                </span>
-              </div>
-              <img
-                v-if="user.avatar"
-                :src="user.avatar"
-                alt="Avatar"
-                class="w-8 h-8 mr-2 rounded-full"
-              />
+    <div class="container">
+        <nav class="" style="position: fixed;">
+            <div class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                            JANUS
+                        </div>
+                        <div class="col-3 col-md-3 col-lg-3 col-xl-2 col-xxl-1">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                                <span class="navbar-toggler-icon">AAAA</span>
+                            </button>
+                        </div>
+                        <div class="col-5 col-md-5 col-lg-6 col-xl-8 col-xxl-10">
+                            <NuxtLink to="/" class="btn btn-primary mr-4">HOME</NuxtLink>
+                        </div>
+                    </div>
 
-              <span>{{ user.name }}</span>
-            </template>
-          </template>
-        </div>
-      </div>
-    </nav>
-
-    <slot />
-  </div>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title"><a href="/">JANUS</a></h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav">
+                                <template v-if="isLoggedIn">
+                                    <li class="nav-item" style="padding: 2px;">
+                                        <a href="https://weed2.september-rain.com/ticket/" class="btn btn-primary">TICKET LIST</a>
+                                    </li>
+                                    <li class="nav-item" style="padding: 2px;">
+                                        <button @click="logoutUser" class="btn btn-danger mr-4">Logout</button>
+                                    </li>
+                                </template>
+                                <template v-if="!isLoggedIn">
+                                    <li class="nav-item" style="padding: 2px;">
+                                        <NuxtLink to="/auth/login" class="btn btn-primary mr-4">Login</NuxtLink>
+                                    </li>                                
+                                    <li class="nav-item" style="padding: 2px;">
+                                        <NuxtLink to="/auth/register" class="btn btn-primary mr-4">Register</NuxtLink>
+                                    </li>                                
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main style="padding: 56px 0px 36px;">
+            <slot />
+        </main>
+    </div>
 </template>
