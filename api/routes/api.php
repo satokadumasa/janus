@@ -10,13 +10,13 @@ Route::get('/sanctum/csrf-cookie', function () {
     return response()->json(['csrf-cookie' => 'set']);
 });
 
-# Operators
+# 一般ユーザ
 Route::middleware('guest')->post('/user_login', [UserAuthController::class, 'store']);
 # admins
 Route::middleware('guest')->post('/admin_login', [AdminAuthController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    # Operators
+    # 一般ユーザ
     Route::get('/user', [UserAuthController::class, 'user']);
     Route::post('/user_logout', [UserAuthController::class, 'destroy']);
 });

@@ -13,7 +13,7 @@ const { csrf, user, isLoggedIn, login, logout, refreshUser } = useSanctum()
 const router = useRouter();
 
 const form = ref({
-  login_email: "",
+  username: "",
   password: "",
 });
 
@@ -45,15 +45,15 @@ const submitForm = async () => {
       <h1 class="text-2xl font-bold text-center">Login</h1>
       <form @submit.prevent="submitForm">
         <div class="flex flex-col space-y-1">
-          <label for="login_email" class="text-sm font-medium">Email</label>
+          <label for="username" class="text-sm font-medium">Email</label>
           <input
-            id="login_email"
-            type="login_email"
-            v-model="form.login_email"
+            id="username"
+            type="username"
+            v-model="form.username"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
-          <span class="text-sm text-red-600" v-if="errors.login_email">
-            {{ errors.login_email[0] }}
+          <span class="text-sm text-red-600" v-if="errors.username">
+            {{ errors.username[0] }}
           </span>
         </div>
 

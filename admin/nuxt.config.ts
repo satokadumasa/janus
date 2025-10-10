@@ -14,7 +14,7 @@ export default defineNuxtConfig({
 
   modules: ["@qirolab/nuxt-sanctum-authentication"],
   runtimeConfig: {
-    // sessionCookieName: 'laravel_partner_session',
+    // sessionCookieName: 'laravel_admin_session',
     sessionExpires: 604800,
     public: {
       sanctum: {
@@ -46,13 +46,13 @@ export default defineNuxtConfig({
       csrf: "/sanctum/csrf-cookie",
 
       // Endpoint used for user authentication
-      login: "/api/partner_login",
+      login: "/api/admin_login",
 
       // Endpoint used to log out users
-      logout: "/api/partner_logout",
+      logout: "/api/admin_logout",
 
       // Endpoint to retrieve the currently authenticated user's data
-      user: "/api/partner",
+      user: "/api/admin",
     },
 
     redirect: {

@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Adnin;
+use App\Models\Admin;
 use App\Models\PersonalAccessToken;
 
 class AdminAuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:partner', ['except' => ['store']]);
+        $this->middleware('auth:admin', ['except' => ['store']]);
     }
     /**
      * Summary of user
@@ -22,7 +22,7 @@ class AdminAuthController extends Controller
      */
     public function admin(Request $request) 
     {
-        \Log::debug("AdminAuthController::partner() START");
+        \Log::debug("AdminAuthController::admin() START");
         return response()->json($request->user());
     }
 
@@ -40,25 +40,25 @@ class AdminAuthController extends Controller
         ]);
 
         \Log::debug("AdminAuthController::store() request:" . print_r($request->all(), true));
-        $partner = Admin::where('username', $request->login_email)->first();
+        $admin = Admin::where('username', $request->username)->first();
 
-        if (!$partner || !Hash::check($request->password, $partner->password)) {
+        if (!$admin || !Hash::check($request->password, $admin->password)) {
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
             ]);
         }
         
-        Auth::guard('admin')->login($partner);
+        Auth::guard('admin')->login($admin);
         \Log::debug("AdminAuthController::store() END");
         return [
-            'token' => $partner->createToken('api-token')->plainTextToken
+            'token' => $admin->createToken('api-token')->plainTextToken
         ];
     }
 
     public function destroy(Request $request)
     {
         // \Log::debug("AdminAuthController::destroy() START");
-        // // $user = Auth::guard('partner')->user();
+        // // $user = Auth::guard('admin')->user();
         // $user = Auth::user();
         // $user->tokens()->delete();
         // \Log::debug("AdminAuthController::destroy() END");
